@@ -1,0 +1,29 @@
+<div [ngSwitch]="review.status" class="item">
+  <div class="edit-item" *ngSwitchCase="ReviewStatus.New">
+    <div class="edit-details"><input #inptName placeholder="name" [(ngModel)]="review.name"></div>
+    <div><textarea #inptComment cols="30" rows="4" placeholder="comment" [(ngModel)]="review.comment"></textarea></div>
+    <div class="edit-button">
+      <button (click)="addReview(inptName.value, inptComment.value)">Add</button>
+    </div>
+  </div>
+  <div class="edit-item" *ngSwitchCase="ReviewStatus.Edit">
+    <div class="edit-details"><input #inptName placeholder="name" [(ngModel)]="review.name"></div>
+    <div><textarea #inptComment cols="30" rows="4" placeholder="comment" [(ngModel)]="review.comment"></textarea></div>
+    <div class="edit-button">
+      <button (click)="editReview(review, ReviewStatus.Regular);">Edit</button>
+    </div>
+  </div>
+  <div class="regular" *ngSwitchCase="ReviewStatus.Regular">
+    <div class="image">
+      <img class="bounds" [src]="review.sourceImg"/>
+    </div>
+    <div class="details">
+      <div class="name">{{review.name}}</div>
+      <div class="comment">{{review.comment}}</div>
+    </div>
+    <div class="icons">
+      <i class="material-icons" (click)="editReview(review, ReviewStatus.Edit);">edit</i>
+      <i class="material-icons">delete</i>
+    </div>
+  </div>
+</div>

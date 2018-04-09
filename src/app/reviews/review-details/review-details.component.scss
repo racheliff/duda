@@ -1,0 +1,51 @@
+.item{
+  border: 1px solid #80808080;
+  box-shadow: 2px 2px 5px #88888873;
+  padding: 5px;
+  margin:10px;
+}
+div.edit-item{
+  input, textarea{
+    width: 90%;
+    border: 1px solid #80808038;
+  }
+  div.edit-details{
+    margin-bottom: 5px
+  }
+  div.edit-button{
+    display: flex;
+    flex-direction: row-reverse;
+    button{
+      background-color: #0078e766;
+      color: white;
+      border: none;
+      border-radius: 2px;
+    }
+  }
+}
+
+div.regular{
+  display: flex;
+  .image{
+    flex-basis: 20%;
+    img.bounds{
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .details{
+    flex-basis: 60%;
+    .name{
+      font-weight: bold;
+    }
+    .comment{
+      color: #0000006e;
+    }
+  }
+  .icons{
+    flex-basis: 20%;
+    i{
+      color: #0000006b;
+    }
+  }
+}

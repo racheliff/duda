@@ -1,0 +1,13 @@
+<div class="reviews-list">
+  <h1>
+    user reviews
+  </h1>
+  <ul>
+    <li *ngFor="let review of reviewsList">
+      <app-review-details [review]="review"
+      (edit)="editReview($event)"></app-review-details>
+    </li>
+  </ul>
+  <app-review-details *ngIf="!editState" [review]="newReview"
+                      (add)="addReview($event)"></app-review-details>
+</div>
