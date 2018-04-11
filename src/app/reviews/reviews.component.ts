@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Review, ReviewStatus} from '../review';
+import * as _ from '@dudadev/random-img';
 
 @Component({
   selector: 'app-reviews',
@@ -16,19 +17,27 @@ export class ReviewsComponent implements OnInit {
   }
   ngOnInit() {
   }
-  addReview(review) {
-    // debugger
-    /*const imgGen = require('@dudadev/random-img');
-    imgGen().then(avatarURL => {
-      this.newReview.clear();
-      this.reviewsList.push(
-        new Review({name: review.name, comment: review.comment, status: ReviewStatus.Regular, sourceImg: avatarURL}));
-    });*/
-    this.newReview.clear();
-    this.reviewsList.push(
-      new Review({name: review.name, comment: review.comment, status: ReviewStatus.Regular, sourceImg: ''}));
+  addEditReview(review) {
+    if (review.status === ReviewStatus.Edit) { // edited
+      review.status = ReviewStatus.Regular;
+    } else {  // new
+      this.addNewReview();
+    }
+    this.editState = this.reviewsList.find(x => x.status === ReviewStatus.Edit) !== undefined;
   }
-  editReview(editState) {
-    this.editState = editState;
+  editStatusReview(review) {
+    // reset statuses of all the list
+    this.reviewsList.forEach(otherReview => otherReview.status = ReviewStatus.Regular);
+    // set the current edited review
+    review.status = ReviewStatus.Edit;
+    this.editState = true;
+  }
+  addNewReview() {
+    _().then((avatarURL: string) => {
+      this.reviewsList.push(
+        new Review({name: this.newReview.name, comment: this.newReview.comment, status: ReviewStatus.Regular, sourceImg: avatarURL}));
+      this.newReview.clear();
+    })
+    .catch(e => console.log(e));
   }
 }

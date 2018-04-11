@@ -5,9 +5,10 @@
   <ul>
     <li *ngFor="let review of reviewsList">
       <app-review-details [review]="review"
-      (edit)="editReview($event)"></app-review-details>
+                          (addEdit)="addEditReview($event)"
+                          (editStatus)="editStatusReview($event)"></app-review-details>
     </li>
   </ul>
   <app-review-details *ngIf="!editState" [review]="newReview"
-                      (add)="addReview($event)"></app-review-details>
+                      (addEdit)="addEditReview($event)"></app-review-details>
 </div>

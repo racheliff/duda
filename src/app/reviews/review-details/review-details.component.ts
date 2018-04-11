@@ -8,8 +8,8 @@ import {Review, ReviewStatus} from '../../review';
 })
 export class ReviewDetailsComponent implements OnInit {
   @Input() review: Review;
-  @Output() add: EventEmitter<any> = new EventEmitter();
-  @Output() edit: EventEmitter<any> = new EventEmitter();
+  @Output() addEdit: EventEmitter<any> = new EventEmitter();
+  @Output() editStatus: EventEmitter<any> = new EventEmitter();
   public ReviewStatus: any;
   constructor() {
     this.ReviewStatus = ReviewStatus;
@@ -17,12 +17,10 @@ export class ReviewDetailsComponent implements OnInit {
 
   ngOnInit() {
   }
-  addReview(name, comment) {
-    this.add.emit({name, comment});
+  addReview() {
+    this.addEdit.emit(this.review);
   }
-  editReview(review, status) {
-    debugger
-    review.status = status;
-    this.edit.emit(review.status === ReviewStatus.Edit);
+  editReview() {
+    this.editStatus.emit(this.review);
   }
 }

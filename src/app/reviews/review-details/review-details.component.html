@@ -1,19 +1,14 @@
-<div [ngSwitch]="review.status" class="item">
-  <div class="edit-item" *ngSwitchCase="ReviewStatus.New">
-    <div class="edit-details"><input #inptName placeholder="name" [(ngModel)]="review.name"></div>
-    <div><textarea #inptComment cols="30" rows="4" placeholder="comment" [(ngModel)]="review.comment"></textarea></div>
-    <div class="edit-button">
-      <button (click)="addReview(inptName.value, inptComment.value)">Add</button>
-    </div>
+<div class="item">
+  <div class="edit-item" *ngIf="review.status == ReviewStatus.New || review.status == ReviewStatus.Edit">
+    <form #reviewForm="ngForm" (submit)="addReview()">
+      <div class="edit-details"><input #inptName="ngModel" name="name" placeholder="name" [(ngModel)]="review.name" required></div>
+      <div><textarea #inptCommente="ngModel" cols="30" rows="4" name="comment" placeholder="comment" [(ngModel)]="review.comment" required></textarea></div>
+      <div class="edit-button">
+        <button type="submit" [disabled]="!reviewForm.form.valid">{{review.status == ReviewStatus.New? 'Add' : 'Edit'}}</button>
+      </div>
+    </form>
   </div>
-  <div class="edit-item" *ngSwitchCase="ReviewStatus.Edit">
-    <div class="edit-details"><input #inptName placeholder="name" [(ngModel)]="review.name"></div>
-    <div><textarea #inptComment cols="30" rows="4" placeholder="comment" [(ngModel)]="review.comment"></textarea></div>
-    <div class="edit-button">
-      <button (click)="editReview(review, ReviewStatus.Regular);">Edit</button>
-    </div>
-  </div>
-  <div class="regular" *ngSwitchCase="ReviewStatus.Regular">
+  <div class="regular" *ngIf="review.status == ReviewStatus.Regular">
     <div class="image">
       <img class="bounds" [src]="review.sourceImg"/>
     </div>
@@ -22,7 +17,7 @@
       <div class="comment">{{review.comment}}</div>
     </div>
     <div class="icons">
-      <i class="material-icons" (click)="editReview(review, ReviewStatus.Edit);">edit</i>
+      <i class="material-icons" (click)="editReview();">edit</i>
       <i class="material-icons">delete</i>
     </div>
   </div>

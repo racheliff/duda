@@ -76100,6 +76100,41 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_2" /* Version */
 
 /***/ }),
 
+/***/ "./node_modules/@dudadev/random-img/index.js":
+/***/ (function(module, exports) {
+
+const MAX_IMAGES = 96;
+const GENDERS = ['men', 'women'];
+
+function getId(id) {
+    if(id) {
+        const numId = 1 * id;
+        return (numId % MAX_IMAGES) + 1;
+    } else {
+        return rand(1, MAX_IMAGES);
+    }
+}
+
+function getGender(gender) {
+    if(GENDERS.indexOf(gender) > -1) {
+        return gender;
+    } else {
+        return GENDERS[rand(0, 1)];
+    }
+}
+
+function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+module.exports = function({ gender, id } = {}) {
+    return new Promise(function(resolve, reject) {
+        resolve(`https://randomuser.me/api/portraits/${getGender(gender)}/${getId(id)}.jpg`)
+    });
+}
+
+/***/ }),
+
 /***/ "./node_modules/rxjs/_esm5/InnerSubscriber.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
